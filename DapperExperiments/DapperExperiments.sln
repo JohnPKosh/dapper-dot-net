@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperMonster", "DapperMons
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperMonster.Test", "DapperMonster.Test\DapperMonster.Test.csproj", "{7C40200A-CFCE-40B6-980F-C988A7CFF642}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperMonster.Extensions", "DapperMonster.Extensions\DapperMonster.Extensions.csproj", "{7D980C1B-7D25-4AF2-81E1-548C001359E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7C40200A-CFCE-40B6-980F-C988A7CFF642}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C40200A-CFCE-40B6-980F-C988A7CFF642}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C40200A-CFCE-40B6-980F-C988A7CFF642}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D980C1B-7D25-4AF2-81E1-548C001359E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D980C1B-7D25-4AF2-81E1-548C001359E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D980C1B-7D25-4AF2-81E1-548C001359E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D980C1B-7D25-4AF2-81E1-548C001359E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -79,35 +79,42 @@ END
         }
 
         [TestMethod]
+        public void SelectDynamicMonstersUnbuffered()
+        {
+            var dynamicMonsters = Db.Query("SELECT * FROM SimpleMonsters", buffered:false);
+            Assert.IsTrue(dynamicMonsters.Any());
+        }
+
+        [TestMethod]
         public void SelectMonsters()
         {
-            var dynamicMonsters = Db.Query<SimpleMonster>("SELECT * FROM SimpleMonsters");
-            Assert.IsTrue(dynamicMonsters.Any());
+            var typedMonsters = Db.Query<SimpleMonster>("SELECT * FROM SimpleMonsters");
+            Assert.IsTrue(typedMonsters.Any());
         }
         
         [TestMethod]
         public void SelectMonstersWithParameter()
         {
-            var dynamicMonsters = Db.Query<SimpleMonster>("SELECT * FROM SimpleMonsters WHERE [Name] = @Name", new {Name= "Flint" });
-            Assert.IsTrue(dynamicMonsters.Any());
+            var typedMonsters = Db.Query<SimpleMonster>("SELECT * FROM SimpleMonsters WHERE [Name] = @Name", new {Name= "Flint" });
+            Assert.IsTrue(typedMonsters.Any());
         }
 
         [TestMethod]
         public void SelectMonstersWithMultipleParameter()
         {
-            var dynamicMonsters = Db.Query<SimpleMonster>("SELECT * FROM SimpleMonsters WHERE [Name] = @Name OR [Habitat] IN @Habitats", new { Name = "Flint", Habitats = new[] { "Hawaii", "Garbage Can" } }).ToList();
-            Assert.IsTrue(dynamicMonsters.Any());
-            Assert.IsTrue(dynamicMonsters.Count == 3); // James P. Sullivan, Cookie Monster, and Flint
+            var typedMonsters = Db.Query<SimpleMonster>("SELECT * FROM SimpleMonsters WHERE [Name] = @Name OR [Habitat] IN @Habitats", new { Name = "Flint", Habitats = new[] { "Hawaii", "Garbage Can" } }).ToList();
+            Assert.IsTrue(typedMonsters.Any());
+            Assert.IsTrue(typedMonsters.Count == 3); // James P. Sullivan, Cookie Monster, and Flint
         }
         
         [TestMethod]
         public void SelectMultimappedQuery()
         {
-            var dynamicMonsters = Db.Query<MonsterAlias, SimpleMonster, MonsterAlias>("SELECT * FROM MonsterAlias child, SimpleMonsters parent WHERE parent.Id = child.SimpleMonsterId AND parent.Name = 'James P. Sullivan'", (alias, monster) =>
+            var typedMonsters = Db.Query<MonsterAlias, SimpleMonster, MonsterAlias>("SELECT * FROM MonsterAlias child, SimpleMonsters parent WHERE parent.Id = child.SimpleMonsterId AND parent.Name = 'James P. Sullivan'", (alias, monster) =>
             {
                 alias.SimpleMonster = monster; return alias;
             });
-            Assert.IsTrue(dynamicMonsters.Any());
+            Assert.IsTrue(typedMonsters.Any());
         }
 
         [TestMethod]
@@ -131,8 +138,8 @@ SELECT * FROM MonsterAlias;";
         [TestMethod]
         public void ExecuteInsertMonster()
         {
-            var dynamicMonsters = Db.Execute(InsertMonsterSql);
-            Assert.IsTrue(dynamicMonsters == 1);
+            var typedMonsters = Db.Execute(InsertMonsterSql);
+            Assert.IsTrue(typedMonsters == 1);
         }
 
         [TestMethod]
@@ -159,8 +166,8 @@ SELECT * FROM MonsterAlias;";
         [TestMethod]
         public void ExecuteUpdateMonster()
         {
-            var dynamicMonsters = Db.Execute(@"UPDATE [dbo].[SimpleMonsters] SET [ScarySound] = 'Shagggggy', [Habitat] = 'Van' WHERE [Name] = 'Scooby Doo'");
-            Assert.IsTrue(dynamicMonsters == 1);
+            var result = Db.Execute(@"UPDATE [dbo].[SimpleMonsters] SET [ScarySound] = 'Shagggggy', [Habitat] = 'Van' WHERE [Name] = 'Scooby Doo'");
+            Assert.IsTrue(result == 1);
         }
 
         #endregion
